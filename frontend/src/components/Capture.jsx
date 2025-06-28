@@ -213,7 +213,7 @@ const Capture = () => {
       )}
 
       {showModal && bookData && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 p-2">
+        <div className="fixed inset-0 backdrop-blur-sm bg-opacity-30 flex items-center justify-center z-50 p-2">
           <div className="bg-white p-4 sm:p-6 rounded-lg w-full max-w-xl relative overflow-y-auto max-h-[90vh]">
             <h2 className="text-xl font-bold mb-4">Verify Book Details</h2>
 

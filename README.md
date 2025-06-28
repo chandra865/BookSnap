@@ -24,14 +24,45 @@ A web application that helps educators and librarians digitize and manage book c
 - **Image Upload**: Multer + Cloudinary
 - **AI Vision**: Google Gemini Flash
 
+## Steps to Get Gemini API Key:
+
+- Go to: https://makersuite.google.com/app
+- Sign in with your Google account.
+- Visit: https://aistudio.google.com/app/apikey
+- Click “Create API Key”
+
+Copy the key shown — this is what they paste into your app.
 ---
 
 ## Setup Instructions
 
 ### Backend
 
-1. **Clone the repo**
-
 ```bash
-git clone https://github.com/your-username/book-inventory-builder.git
-cd book-inventory-builder/backend
+git clone https://github.com/chandra865/BookSnap.git
+cd BookSnap/backend
+npm install
+npm start
+```
+### frontend
+```bash
+cd BookSnap/frontend
+npm install
+npm run dev
+```
+
+## Screenshots
+
+### Book Upload Page
+
+![Upload Page](./assets/Capture_page.PNG)
+
+### Book Details Extracted
+
+![Book Details](./assets/verify_capture.PNG)
+
+###  Inventory View
+
+![Inventory Grid](./assets/inventory_page.PNG)
+
+```
