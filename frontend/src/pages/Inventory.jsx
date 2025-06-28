@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-const API_BASE_URL = import.meta.env.VITE_BACKEND_URL
+
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
 const Inventory = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,14 +22,14 @@ const Inventory = () => {
   };
 
   const fetchBooks = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/api/v1/book/get-books`);
-        setBooks(response.data.books);
-      } catch (error) {
-        console.error('Error fetching books:', error);
-      } finally {
-        setLoading(false);
-      }
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/v1/book/get-books`);
+      setBooks(response.data.books);
+    } catch (error) {
+      console.error('Error fetching books:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -45,7 +47,6 @@ const Inventory = () => {
 
     try {
       await axios.delete(`${API_BASE_URL}/api/v1/book/delete-book/${id}`);
-      // setBooks((prev) => prev.filter((book) => book._id !== id));
       fetchBooks(); // Refresh the book list after deletion
     } catch (error) {
       console.error('Error deleting book:', error);
@@ -61,8 +62,8 @@ const Inventory = () => {
   }
 
   return (
-    <div className="p-4 md:p-8 max-w-6xl mx-auto">
-      <h1 className="text-2xl md:text-3xl font-bold mb-6">Book Inventory</h1>
+    <div className="p-4 md:p-8 max-w-7xl mx-auto">
+      <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center md:text-left">Book Inventory</h1>
 
       <input
         type="text"
@@ -73,37 +74,38 @@ const Inventory = () => {
       />
 
       {books.length === 0 ? (
-        <p className="text-gray-600">No books found.</p>
+        <p className="text-gray-600 text-center">No books found.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {books.map((book) => (
             <div
               key={book._id}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
             >
               <img
                 src={book.coverUrl}
                 alt={book.title}
                 className="w-full h-48 object-cover"
               />
-              <div className="p-4">
-                <h2 className="text-lg font-semibold">{book.title}</h2>
-                <p className="text-sm text-gray-700">by {book.author}</p>
-                <p className="text-sm text-gray-500">Grade: {book.grade || '—'}</p>
-                <p className="text-sm text-gray-500">Category: {book.category || '—'}</p>
-                <p className="text-sm text-gray-500 italic">
-                  Publisher: {book.publisher || '—'}
-                </p>
-                <p className="text-sm text-gray-500 italic">
-                  Year: {book.publishedYear || '—'}
-                </p>
-                <p className="text-sm text-gray-500 italic">
-                  Edition: {book.edition || '—'}
-                </p>
-
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <h2 className="text-lg font-semibold">{book.title}</h2>
+                  <p className="text-sm text-gray-700">by {book.author}</p>
+                  <p className="text-sm text-gray-500">Grade: {book.grade || '—'}</p>
+                  <p className="text-sm text-gray-500">Category: {book.category || '—'}</p>
+                  <p className="text-sm text-gray-500 italic">
+                    Publisher: {book.publisher || '—'}
+                  </p>
+                  <p className="text-sm text-gray-500 italic">
+                    Year: {book.publishedYear || '—'}
+                  </p>
+                  <p className="text-sm text-gray-500 italic">
+                    Edition: {book.edition || '—'}
+                  </p>
+                </div>
                 <button
                   onClick={() => handleDelete(book._id)}
-                  className="mt-3 px-3 py-1 bg-blue-600 text-white rounded hover:bg-red-700 text-sm"
+                  className="mt-4 w-full px-3 py-2 bg-blue-600 text-white rounded hover:bg-red-700 text-sm"
                 >
                   Delete
                 </button>

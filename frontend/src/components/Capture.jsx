@@ -2,9 +2,9 @@ import React, { useState, useRef } from "react";
 import { FaTimes } from "react-icons/fa";
 import { callGeminiVision } from "../utility/callGeminiVision";
 import { toBase64 } from "../utility/toBase64";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
-import axios from "axios";  
+import axios from "axios";
 const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 const Capture = () => {
   const [image, setImage] = useState(null);
@@ -34,7 +34,7 @@ const Capture = () => {
   const handleDrop = async (e) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
-    
+
     if (file) {
       setOgImage(file);
       setImage(URL.createObjectURL(file));
@@ -88,11 +88,10 @@ const Capture = () => {
         publishedYear: toTitleCase(rawData.publishedYear),
         edition: toTitleCase(rawData.edition),
       };
-      setBookData(data); 
+      setBookData(data);
       setShowModal(true);
 
       console.log("Extracted Book Data:", data);
-     
     } catch (err) {
       console.error("Extraction failed:", err.message);
       alert(
@@ -102,49 +101,50 @@ const Capture = () => {
   };
 
   const saveBookToBackend = async () => {
-  try {
-    // Create FormData object
-    setLoading(true);
-    const formData = new FormData();
-    formData.append('cover', ogImg); 
-    formData.append('title', bookData.title);
-    formData.append('author', bookData.author);
-    formData.append('category', bookData.category);
-    formData.append('publisher', bookData.publisher);
-    formData.append('publishedYear', bookData.publishedYear);
-    formData.append('edition', bookData.edition);
-    formData.append('grade', bookData.grade);
+    try {
+      // Create FormData object
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("cover", ogImg);
+      formData.append("title", bookData.title);
+      formData.append("author", bookData.author);
+      formData.append("category", bookData.category);
+      formData.append("publisher", bookData.publisher);
+      formData.append("publishedYear", bookData.publishedYear);
+      formData.append("edition", bookData.edition);
+      formData.append("grade", bookData.grade);
 
-    // Send POST request
-    const response = await axios.post(`${API_BASE_URL}/api/v1/book/add-book`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+      // Send POST request
+      const response = await axios.post(
+        `${API_BASE_URL}/api/v1/book/add-book`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-    console.log('Book saved:', response.data);
+      console.log("Book saved:", response.data);
 
-    alert('Book saved successfully!');
-    setShowModal(false);
-    setLoading(false);
-    navigate('/inventory'); // Redirect to inventory page after saving
-  } catch (err) {
-    console.error('Save error:', err);
-    alert('Failed to save book data.');
+      alert("Book saved successfully!");
+      setShowModal(false);
+      setLoading(false);
+      navigate("/inventory"); // Redirect to inventory page after saving
+    } catch (err) {
+      console.error("Save error:", err);
+      alert("Failed to save book data.");
+    }
+  };
+
+  if (loading) {
+    return <Loading />;
   }
-};
 
-if (loading) {  
-  return <Loading/>;
-}
+  // Only the return JSX part is shown below (you keep the rest of your component logic as is)
 
   return (
     <div className="p-4 md:p-8 max-w-4xl mx-auto">
-      {/* <h1 className="text-2xl md:text-3xl font-bold mb-6">
-        Configure LLM and Upload Cover
-      </h1> */}
-
-      {/* LLM Configuration */}
       <div className="bg-white p-4 rounded shadow mb-6">
         <h2 className="text-xl font-semibold mb-2">LLM Setup</h2>
         <label className="block mb-2">
@@ -155,7 +155,6 @@ if (loading) {
             onChange={(e) => setProvider(e.target.value)}
           >
             <option value="">-- Select --</option>
-            {/* <option value="openai">OpenAI Vision</option> */}
             <option value="gemini">Google Gemini</option>
           </select>
         </label>
@@ -169,15 +168,8 @@ if (loading) {
             placeholder="Paste your API key"
           />
         </label>
-        {/* <button
-          onClick={handleSaveLLMConfig}
-          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-        >
-          Save API Config
-        </button> */}
       </div>
 
-      {/* Image Upload */}
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}
@@ -221,37 +213,38 @@ if (loading) {
       )}
 
       {showModal && bookData && (
-        <div className="fixed inset-0 backdrop-blur-sm bg-opacity-12 flex items-center justify-center z-50">
-          <div className="bg-gray-200 p-6 rounded-lg w-full max-w-lg relative">
+        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 p-2">
+          <div className="bg-white p-4 sm:p-6 rounded-lg w-full max-w-xl relative overflow-y-auto max-h-[90vh]">
             <h2 className="text-xl font-bold mb-4">Verify Book Details</h2>
 
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <img
                 src={image}
                 alt="Book"
-                className="w-28 h-40 object-cover rounded shadow"
+                className="w-full sm:w-28 h-40 object-cover rounded shadow mx-auto sm:mx-0"
               />
+
               <div className="flex-1 space-y-2">
-                <label className="font-bold">Title</label>
-                <input
-                  type="text"
-                  value={bookData.title || ""}
-                  onChange={(e) =>
-                    setBookData({ ...bookData, title: e.target.value })
-                  }
-                  className="w-full border p-2 rounded"
-                  placeholder="Book Title"
-                />
-                <label className="font-bold">Author</label>
-                <input
-                  type="text"
-                  value={bookData.author || ""}
-                  onChange={(e) =>
-                    setBookData({ ...bookData, author: e.target.value })
-                  }
-                  className="w-full border p-2 rounded"
-                  placeholder="Author"
-                />
+                {[
+                  { label: "Title", key: "title" },
+                  { label: "Author", key: "author" },
+                  { label: "Publisher", key: "publisher" },
+                  { label: "Edition", key: "edition" },
+                ].map(({ label, key }) => (
+                  <div key={key}>
+                    <label className="font-bold">{label}</label>
+                    <input
+                      type="text"
+                      value={bookData[key] || ""}
+                      onChange={(e) =>
+                        setBookData({ ...bookData, [key]: e.target.value })
+                      }
+                      className="w-full border p-2 rounded"
+                      placeholder={label}
+                    />
+                  </div>
+                ))}
+
                 {/* Grade Dropdown */}
                 <label className="font-bold">Grade</label>
                 <select
@@ -259,7 +252,7 @@ if (loading) {
                   onChange={(e) =>
                     setBookData({ ...bookData, grade: e.target.value })
                   }
-                  className="w-full border p-2 rounded mb-4"
+                  className="w-full border p-2 rounded"
                 >
                   <option value="">-- Select Grade --</option>
                   <option value="Kindergarten">Kindergarten</option>
@@ -276,14 +269,13 @@ if (loading) {
                 </select>
 
                 {/* Category Dropdown */}
-                {/* Category Dropdown */}
                 <label className="font-bold">Category</label>
                 <select
                   value={bookData.category || ""}
                   onChange={(e) =>
                     setBookData({ ...bookData, category: e.target.value })
                   }
-                  className="w-full border p-2 rounded mb-4"
+                  className="w-full border p-2 rounded"
                 >
                   <option value="">-- Select Category --</option>
                   <option value="Science">Science</option>
@@ -296,7 +288,7 @@ if (loading) {
                   <option value="Art">Art</option>
                 </select>
 
-                {/* Published Year Input (Year Only) */}
+                {/* Year */}
                 <label className="font-bold">Published Year</label>
                 <input
                   type="number"
@@ -306,32 +298,9 @@ if (loading) {
                   onChange={(e) =>
                     setBookData({ ...bookData, publishedYear: e.target.value })
                   }
-                  className="w-full border p-2 rounded mb-4"
+                  className="w-full border p-2 rounded"
                   placeholder="e.g. 2022"
                 />
-
-                <label className="font-bold">Publisher</label>
-                <input
-                  type="text"
-                  value={bookData.publisher || ""}
-                  onChange={(e) =>
-                    setBookData({ ...bookData, publisher: e.target.value })
-                  }
-                  className="w-full border p-2 rounded"
-                  placeholder="Publisher"
-                />
-
-                <label className="font-bold">Edition</label>
-                <input
-                  type="text"
-                  value={bookData.edition || ""}
-                  onChange={(e) =>
-                    setBookData({ ...bookData, edition: e.target.value })
-                  }
-                  className="w-full border p-2 rounded"
-                  placeholder="Edition"
-                />
-                
               </div>
             </div>
 
