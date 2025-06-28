@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL
 const Inventory = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,7 +9,7 @@ const Inventory = () => {
   const searchBooks = async (query = '') => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/book/search-books?search=${query}`
+        `${API_BASE_URL}/api/v1/book/search-books?search=${query}`
       );
       setBooks(response.data.books);
     } catch (error) {
@@ -21,7 +21,7 @@ const Inventory = () => {
 
   const fetchBooks = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/book/get-books');
+        const response = await axios.get(`${API_BASE_URL}/api/v1/book/get-books`);
         setBooks(response.data.books);
       } catch (error) {
         console.error('Error fetching books:', error);
@@ -44,7 +44,7 @@ const Inventory = () => {
     if (!window.confirm('Are you sure you want to delete this book?')) return;
 
     try {
-      await axios.delete(`http://localhost:8000/api/v1/book/delete-book/${id}`);
+      await axios.delete(`${API_BASE_URL}/api/v1/book/delete-book/${id}`);
       // setBooks((prev) => prev.filter((book) => book._id !== id));
       fetchBooks(); // Refresh the book list after deletion
     } catch (error) {

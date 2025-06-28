@@ -5,6 +5,7 @@ import { toBase64 } from "../utility/toBase64";
 import {useNavigate} from "react-router-dom";
 import Loading from "./Loading";
 import axios from "axios";  
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 const Capture = () => {
   const [image, setImage] = useState(null);
   const [ogImg, setOgImage] = useState(null);
@@ -115,7 +116,7 @@ const Capture = () => {
     formData.append('grade', bookData.grade);
 
     // Send POST request
-    const response = await axios.post('http://localhost:8000/api/v1/book/add-book', formData, {
+    const response = await axios.post(`${API_BASE_URL}/api/v1/book/add-book`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
