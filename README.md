@@ -5,7 +5,8 @@ A web application that helps educators and librarians digitize and manage book c
 ---
 
 ## Demo
-**Live Demo:-** [https://book-snap-iota.vercel.app/](https://book-snap-iota.vercel.app/)
+**Live Demo:-** [https://book-snap-iota.vercel.app](https://book-snap-iota.vercel.app)
+
 **Video Demo:-**[watch](https://drive.google.com/file/d/1hYIyl6ymj2U-3U_CYsrYmao_FdrTd1vY/view?usp=sharing)
 
 ## Features
