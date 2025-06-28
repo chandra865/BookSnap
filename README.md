@@ -31,38 +31,67 @@ A web application that helps educators and librarians digitize and manage book c
 - Visit: https://aistudio.google.com/app/apikey
 - Click “Create API Key”
 
-Copy the key shown — this is what they paste into your app.
----
 
-## Setup Instructions
+### Getting Started
 
-### Backend
 
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/chandra865/BookSnap.git
+   cd BookSnap
+
+   ```
+
+2. Frontend setup:
+
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+
+   ```
+
+3. Backend setup:
+   ```bash
+   cd backend
+   npm install
+   npm start
+   ```
+4. Environment Variables:
+
+### backend 
 ```bash
-git clone https://github.com/chandra865/BookSnap.git
-cd BookSnap/backend
-npm install
-npm start
+PORT
+DB_NAME=
+CORS_ORIGIN
+MONGODB_URI
+CLOUDINARY_CLOUD_NAME 
+CLOUDINARY_API_KEY
+CLOUDINARY_API_SECRET
 ```
+
 ### frontend
 ```bash
-cd BookSnap/frontend
-npm install
-npm run dev
+    VITE_BACKEND_URL
 ```
+
+## Deployment
+- Frontend on Vercel
+- Backend on Render
+---
 
 ## Screenshots
 
 ### Book Upload Page
 
-![Upload Page](./assets/Capture_page.PNG)
+![Upload Page](./assets/screenshot/Capture_page.PNG)
 
 ### Book Details Extracted
 
-![Book Details](./assets/verify_capture.PNG)
+![Book Details](./assets/screenshot/verify_capture.PNG)
 
-###  Inventory View
+### Inventory View
 
-![Inventory Grid](./assets/inventory_page.PNG)
-
-```
+![Inventory Grid](./assets/screenshot/inventory_page.PNG)

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { FaTimes } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa";
 import { callGeminiVision } from "../utility/callGeminiVision";
 import { toBase64 } from "../utility/toBase64";
 import { useNavigate } from "react-router-dom";
@@ -145,6 +145,14 @@ const Capture = () => {
 
   return (
     <div className="p-4 md:p-8 max-w-4xl mx-auto">
+      <div className="flex flex-row justify-end mb-4">
+        <butoon 
+      className="mt-4 px-4 py-2 rounded text-white bg-blue-600 cursor-pointer hover:bg-blue-700"
+      onClick={() => navigate("/inventory")}
+      ><span><FaArrowRight/></span> Go to Inventory</butoon>
+
+      </div>
+      
       <div className="bg-white p-4 rounded shadow mb-6">
         <h2 className="text-xl font-semibold mb-2">LLM Setup</h2>
         <label className="block mb-2">
@@ -181,7 +189,7 @@ const Capture = () => {
         </p>
         <button
           type="button"
-          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer"
         >
           Select Image
         </button>
@@ -307,13 +315,13 @@ const Capture = () => {
             <div className="mt-6 flex justify-end gap-2">
               <button
                 onClick={() => setShowModal(false)}
-                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={saveBookToBackend}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer"
               >
                 Save
               </button>
