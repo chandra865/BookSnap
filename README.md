@@ -4,6 +4,10 @@ A web application that helps educators and librarians digitize and manage book c
 
 ---
 
+## Demo
+**Live Demo:-** [https://book-snap-iota.vercel.app/](https://book-snap-iota.vercel.app/)
+**Video Demo:-**[watch](https://drive.google.com/file/d/1hYIyl6ymj2U-3U_CYsrYmao_FdrTd1vY/view?usp=sharing)
+
 ## Features
 
 - Upload book cover images (drag-and-drop or camera)
@@ -60,8 +64,7 @@ A web application that helps educators and librarians digitize and manage book c
    npm start
    ```
 4. Environment Variables:
-
-### backend 
+- backend 
 ```bash
 PORT
 DB_NAME=
@@ -72,7 +75,7 @@ CLOUDINARY_API_KEY
 CLOUDINARY_API_SECRET
 ```
 
-### frontend
+- frontend
 ```bash
     VITE_BACKEND_URL
 ```
